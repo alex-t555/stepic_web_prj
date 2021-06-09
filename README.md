@@ -14,7 +14,7 @@
 Поскольку разработка проекта связана не только с написание кода, но и установкой и настройкой серверов, то вам будет необходимо автоматизировать этот процесс, а именно в создать в репозитории файл init.sh, в котором будут перечислены все необходимые действия для данного этапа проекта.  Вот пример такого файла:
 
 ```
-sudo -s /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
+sudo ln -s /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
 sudo /etc/init.d/nginx restart
 sudo ln -s /home/box/web/etc/gunicorn.conf   /etc/gunicorn.d/test
 sudo /etc/init.d/gunicorn restart
