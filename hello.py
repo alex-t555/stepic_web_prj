@@ -9,11 +9,11 @@ WSGI приложение должно возвращать документ с 
 ################################################################################
 def app(environ, start_response):
     """ web application """
-    body = [(s + '\n').encode() for s in environ['QUERY_STRING'].split('&')]
+    body = ''.join([(s + '\n') for s in environ['QUERY_STRING'].split('&')]).encode()
     status = '200 OK'
     headers = [
         ('Content-Type', 'text/plain'),
         ('Content-Length', str(len(body)))
     ]
     start_response(status, headers)
-    return body
+    return [body]
