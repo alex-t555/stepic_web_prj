@@ -1,2 +1,4 @@
 # .gitignore file
-*/__pycache__/*.pyc
+/ask/ask/__pycache__/
+/ask/qa/__pycache__/
+/etc/__pycache__/
