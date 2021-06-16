@@ -1,5 +1,5 @@
 """
-    models.py
+    qa/models.py
 """
 from django.db import models
 from django.contrib.auth.models import User
@@ -11,7 +11,7 @@ class QuestionManager(models.Manager):
     """
     def new(self):
         """ new func """
-        return self.order_by('-added_at')
+        return self.order_by('-id')
     def popular(self):
         """ popular func """
         return self.order_by('-rating')
@@ -38,6 +38,7 @@ class Question(models.Model):
         return str(self.title)
 
 
+
 class Answer(models.Model):
     """
     Answer - ответ
@@ -46,6 +47,7 @@ class Answer(models.Model):
         question - вопрос, к которому относится ответ
         author - автор ответа
     """
+    objects = models.Manager()
     text = models.TextField()
     added_at = models.DateField(auto_now_add=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
