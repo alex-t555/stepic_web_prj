@@ -4,7 +4,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+
 class QuestionManager(models.Manager):
     """
     Question Manager
@@ -30,13 +30,19 @@ class Question(models.Model):
     objects = QuestionManager()
     title = models.CharField(max_length=255)
     text = models.TextField()
-    added_at = models.DateField(auto_now_add=True)
+    added_at = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(default=0)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, related_name="question_like_user")
+    author = models.ForeignKey(User, null=True, default=None, on_delete=models.CASCADE, related_name="question")
+    likes = models.ManyToManyField(User, default=None, related_name="question_like_user")
+
+    class Meta:
+        ordering = ["-added_at"]
+
     def __str__(self):
         return str(self.title)
 
+    def get_absolute_url(self):
+        return "/question/{:d}/".format(self.pk)
 
 
 class Answer(models.Model):
@@ -49,8 +55,12 @@ class Answer(models.Model):
     """
     objects = models.Manager()
     text = models.TextField()
-    added_at = models.DateField(auto_now_add=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answer")
+    author = models.ForeignKey(User, null=True, default=None, on_delete=models.CASCADE, related_name="answer")
+
+    class Meta:
+        ordering = ["-added_at"]
+
     def __str__(self):
         return str(self.text)
