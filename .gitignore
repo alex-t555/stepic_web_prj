@@ -2,3 +2,6 @@
 /ask/ask/__pycache__/
 /ask/qa/__pycache__/
 /etc/__pycache__/
+/ask/qa/migrations/__pycache__/
+/ask/qa/migrations/
+/db.sqlite3
