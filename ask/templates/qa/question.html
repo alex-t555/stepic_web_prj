@@ -7,23 +7,36 @@
 <body>
 
 <div>
-    <h3>Question: {{ question.title }}</h3>
+    <p>User: {{ user.username  }}</p>
+</div>
+
+<div>
+    <h3>Question:</h3>
+    <p>Title: {{ question.title }}</p>
+    <p>Author: {{ question.author }}</p>
+    <p>Added at: {{ question.added_at }}</p>
     <p>{{ question.text }}</p>
 </div>
+<hr>
 <hr>
 
 <div>
     <h3>Answers:</h3>
     {% for answer in answers %}
     <div>
+        <p>Author: {{ answer.author }}</p>
+        <p>Added at: {{ answer.added_at }}</p>
         <p>{{ answer.text }}</p>
+        <hr>
     </div>
     {% endfor %}
 </div>
 
+{% if user.is_authenticated %}
 <div>
     {% include "qa/base_form.html" %}
 </div>
+{% endif %}
 
 </body>
 </html>

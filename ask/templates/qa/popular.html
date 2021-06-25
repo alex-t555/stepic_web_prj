@@ -7,6 +7,11 @@
 <body>
 
 <h2>Popular questions</h2>
+
+<div>
+    <p>User: {{ user.username  }}</p>
+</div>
+
 <div>
 {% for q in page.object_list %}
     <div>

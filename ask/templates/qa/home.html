@@ -5,7 +5,13 @@
     <title>Home - new questions</title>
 </head>
 <body>
+
 <h2>New questions</h2>
+
+<div>
+    <p>User: {{ user.username  }}</p>
+</div>
+
 <div>
     {% for q in page.object_list %}
         <div>

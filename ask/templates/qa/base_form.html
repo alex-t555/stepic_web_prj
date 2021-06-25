@@ -8,9 +8,13 @@
         <div class="control-group {% if field.errors %}has-error{% endif %}">
             <label class="control-label">{{ field.label }}</label>
             <div class="controls">{{ field }}</div>
+            <div>{{ field.errors }}</div>
         </div>
     {% endfor %}
     </fieldset>
+
+    <!-- {{ form.as_table }} -->
+
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </div>
