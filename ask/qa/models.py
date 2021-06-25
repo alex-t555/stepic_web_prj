@@ -50,11 +50,6 @@ class Question(db.models.Model):
 
 class Answer(db.models.Model):
     """
-    Answer - ответ
-        text - текст ответа
-        added_at - дата добавления ответа
-        question - вопрос, к которому относится ответ
-        author - автор ответа
     """
     objects = db.models.Manager()
     text = db.models.TextField()

@@ -8,9 +8,6 @@ from qa.models import Question, Answer
 
 class AskForm(forms.ModelForm):
     """
-    AskForm - форма добавления вопроса
-        title - поле заголовка
-        text - поле текста вопроса
     """
 
     class Meta:
@@ -26,9 +23,6 @@ class AskForm(forms.ModelForm):
 
 class AnswerForm(forms.ModelForm):
     """
-    AnswerForm - форма добавления ответа
-        text - поле текста ответа
-        question - поле для связи с вопросом
     """
 
     class Meta:
@@ -44,9 +38,6 @@ class AnswerForm(forms.ModelForm):
 
 class SignupForm(contrib.auth.forms.UserCreationForm):
     """
-    username - имя пользователя, логин
-    email - email пользователя
-    password - пароль пользователя
     """
     email = forms.EmailField()
     # password = forms.CharField(widget=forms.PasswordInput)

@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 # for python2
 import os
 
-BASE_DIR = os.path.dirname(os.getcwd())
+# BASE_DIR = os.path.dirname(os.getcwd())
+BASE_DIR = "/home/box/web/ask/"
 # print(BASE_DIR)
 
 # from pathlib import Path
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'ask.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates/'],
+        'DIRS': ['/home/box/web/ask/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,12 +83,12 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'ask',
-        # 'USER': 'box',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ask',
+        'USER': 'box',
 
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
