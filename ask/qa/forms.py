@@ -49,13 +49,34 @@ class SignupForm(contrib.auth.forms.UserCreationForm):
     password - пароль пользователя
     """
     email = forms.EmailField()
+    # password = forms.CharField(widget=forms.PasswordInput)
+    # password2 = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model = contrib.auth.models.User
         fields = ("username", "email", "password1", "password2",)
+        # widgets = {
+        #     "password1": forms.TextInput(attrs={"name": "password"}),
+        # }
 
     def save(self, commit=True):
         user = super().save(commit=False)
         if commit:
             user.save()
         return user
+
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Repeat password",
+                                widget=forms.PasswordInput)
+
+    class Meta:
+        model = contrib.auth.models.User
+        fields = ("username", "email")
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd.get("password") != cd.get("password2"):
+            raise forms.ValidationError("Passwords don't match.")
+        return cd.get("password2")

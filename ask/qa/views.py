@@ -11,7 +11,8 @@ from django import contrib
 
 from qa.models import Question, Answer
 from qa.forms import AskForm, AnswerForm
-from qa.forms import SignupForm
+# from qa.forms import SignupForm
+from qa.forms import UserRegistrationForm
 
 
 def paginate(request: http.HttpRequest, qs: db.models.QuerySet) -> core.paginator.Page:
@@ -131,15 +132,27 @@ def signup(request: http.HttpRequest) -> http.HttpResponse:
     запросе создается новый пользователей, осуществляется вход (login)
     созданного пользователя на сайт, возвращается редирект на главную страницу.
     """
-    if request.method == "POST":
-        form = SignupForm(request.POST)
+    # if request.method == "POST":
+    #     form = SignupForm(request.POST)
+    #     if form.is_valid():
+    #         user = form.save()
+    #         contrib.auth.login(request, user)
+    #         # return http.HttpResponseRedirect("/")
+    #         return shortcuts.redirect("home")
+    # else:
+    #     form = SignupForm()
+    # return shortcuts.render(request, "qa/base_form.html", { "form": form })
+
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.password = form.cleaned_data.get('password')
+            user.save()
             contrib.auth.login(request, user)
-            # return http.HttpResponseRedirect("/")
             return shortcuts.redirect("home")
     else:
-        form = SignupForm()
+        form = UserRegistrationForm()
     return shortcuts.render(request, "qa/base_form.html", { "form": form })
 
 
