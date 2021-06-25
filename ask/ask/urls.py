@@ -22,8 +22,11 @@ from qa import views
 urlpatterns = [
     # url(r'^$', include('qa.urls')),
     url(r'^$', view=views.home, name='home'),
-    url(r'^login/', include('qa.urls')),
-    url(r'^signup/', include('qa.urls')),
+    # url(r'^login/', include('qa.urls')),
+    url(r'^login/', view=views.login, name="login"),
+    url(r'^logout/', view=views.logout, name="logout"),
+    # url(r'^signup/', include('qa.urls')),
+    url(r'^signup/', view=views.signup, name="signup"),
     # url(r'^question/', include('qa.urls')),
     url(r'^question/(?P<id_question>[0-9]+)/$', view=views.question, name='question'),
     # url(r'^ask/', include('qa.urls')),
@@ -32,6 +35,6 @@ urlpatterns = [
     url(r'^popular/', view=views.popular, name='popular'),
     url(r'^new/', include('qa.urls')),
     # path('', include('qa.urls')),
-    url(r'^admin/', admin.site.urls),
     # path('admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
 ]

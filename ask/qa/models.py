@@ -1,11 +1,11 @@
 """
     qa/models.py
 """
-from django.db import models
-from django.contrib.auth.models import User
+from django import db
+from django import contrib
 
 
-class QuestionManager(models.Manager):
+class QuestionManager(db.models.Manager):
     """
     Question Manager
     """
@@ -17,7 +17,7 @@ class QuestionManager(models.Manager):
         return self.order_by('-rating')
 
 
-class Question(models.Model):
+class Question(db.models.Model):
     """
     Question - вопрос
         title - заголовок вопроса
@@ -28,12 +28,15 @@ class Question(models.Model):
         likes - список пользователей, поставивших "лайк"
     """
     objects = QuestionManager()
-    title = models.CharField(max_length=255)
-    text = models.TextField()
-    added_at = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(default=0)
-    author = models.ForeignKey(User, null=True, default=None, on_delete=models.CASCADE, related_name="question")
-    likes = models.ManyToManyField(User, default=None, related_name="question_like_user")
+    title = db.models.CharField(max_length=255)
+    text = db.models.TextField()
+    added_at = db.models.DateTimeField(auto_now_add=True)
+    rating = db.models.IntegerField(default=0)
+    author = db.models.ForeignKey(contrib.auth.models.User,
+                                  on_delete=db.models.CASCADE,
+                                  related_name="question")
+    likes = db.models.ManyToManyField(contrib.auth.models.User, default=None,
+                                      related_name="question_like_user")
 
     class Meta:
         ordering = ["-added_at"]
@@ -45,7 +48,7 @@ class Question(models.Model):
         return "/question/{:d}/".format(self.pk)
 
 
-class Answer(models.Model):
+class Answer(db.models.Model):
     """
     Answer - ответ
         text - текст ответа
@@ -53,11 +56,14 @@ class Answer(models.Model):
         question - вопрос, к которому относится ответ
         author - автор ответа
     """
-    objects = models.Manager()
-    text = models.TextField()
-    added_at = models.DateTimeField(auto_now_add=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answer")
-    author = models.ForeignKey(User, null=True, default=None, on_delete=models.CASCADE, related_name="answer")
+    objects = db.models.Manager()
+    text = db.models.TextField()
+    added_at = db.models.DateTimeField(auto_now_add=True)
+    question = db.models.ForeignKey(Question, on_delete=db.models.CASCADE,
+                                    related_name="answer")
+    author = db.models.ForeignKey(contrib.auth.models.User,
+                                  on_delete=db.models.CASCADE,
+                                  related_name="answer")
 
     class Meta:
         ordering = ["-added_at"]
